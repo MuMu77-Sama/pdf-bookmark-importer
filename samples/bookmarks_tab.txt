@@ -1,0 +1,5 @@
+Introduction	1
+Background	2
+Method	3
+Results	5
+Conclusion	6

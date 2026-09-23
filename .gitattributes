@@ -1,0 +1,16 @@
+# 仓库内统一以 LF 存储
+* text=auto eol=lf
+
+# shell 脚本必须 LF，否则 Linux / macOS 上无法执行
+*.sh   text eol=lf
+
+# Windows 批处理必须 CRLF
+*.cmd  text eol=crlf
+*.bat  text eol=crlf
+
+# 二进制文件不要做换行转换
+*.pdf  binary
+*.png  binary
+*.ico  binary
+*.zip  binary
+*.exe  binary
