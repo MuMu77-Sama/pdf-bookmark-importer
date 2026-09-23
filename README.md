@@ -193,27 +193,6 @@ pdfbookmarks.cmd 书.pdf 目录.txt --dry-run
 启动器 `pdfbookmarks.cmd` / `pdfbookmarks-gui.cmd` 会自动寻找可用的
 Python，并会把结果打印出来（如果失败）。
 
-### 关于本机的 Python 环境
-
-本机的 Python 3.14 安装是**不完整**的：
-
-* `C:\Python314` 有解释器 `python.exe`，但**缺少 `Lib` 标准库目录**；
-* `%LOCALAPPDATA%\Programs\Python\Python314` 有完整的 `Lib`、`DLLs`、`tcl`，但**没有 `python.exe`**。
-
-`tools\find_python.ps1` 会自动把这两半配对起来（用 `PYTHONHOME` 指向
-含标准库的那一半），所以本工具开箱即用，无需你手动修复。
-
-如果想彻底修好本机 Python（让 `python` 命令到处都能用），可以任选其一：
-
-1. 把 `%LOCALAPPDATA%\Programs\Python\Python314\Lib` 复制到 `C:\Python314\Lib`；
-2. 或者重新安装一次 Python 3.14（勾选 "Add python.exe to PATH"）。
-
-也可以用环境变量显式指定解释器：
-
-```bat
-set PDFBOOKMARKS_PYTHON=C:\some\path\python.exe
-```
-
 ---
 
 ## 测试
@@ -265,26 +244,3 @@ python tools\make_sample_pdf.py
 * 线性化（fast web view）PDF 写入后不再是线性化的，但仍然完全有效。
 
 ---
-
-## 目录结构
-
-```
-pdfbookmarks.cmd         Windows 命令行启动器
-pdfbookmarks-gui.cmd     Windows 图形界面启动器
-pdfbookmarks.sh          Linux / macOS 命令行启动器
-pdfbookmarks-gui.sh      Linux / macOS 图形界面启动器
-pdfbookmarks/
-  pdfobj.py       PDF 对象模型与语法解析（含 zlib/LZW/预测器解码）
-  pdfdoc.py       文档层：xref 表、xref 流、对象流、页面树、损坏重建
-  outline.py      书签写入（增量更新）
-  outline_read.py 读取已有书签
-  textparse.py    书签文本的通用解析
-  cli.py          命令行接口 + 核心导入逻辑
-  gui.py          tkinter 图形界面
-tools/
-  make_sample_pdf.py  生成测试用样例 PDF
-  find_python.ps1     Windows 上自动探测可用的 Python
-tests/
-  test_all.py         测试套件
-samples/              样例 PDF 与书签文本
-```
